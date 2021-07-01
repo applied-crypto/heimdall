@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="85f416be-a422-4480-af49-d342fe801928" name="Default Changelist" comment="added feature verification">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/cli/heimdalljs-cred-new.js" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="KotlinMultiplatform">
+    <allAvailableExecutables />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="jrumqzyr" />
+  </component>
+  <component name="ProjectId" id="1osKyP2M3HWtTySokbJ5R8pLNg6" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="full.screen.before.presentation.mode" value="true" />
+    <property name="javascript.nodejs.core.library.configured.version" value="16.0.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="15.12.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/test/attribute" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test/attribute" />
+      <recent name="$PROJECT_DIR$/test/commandLine" />
+      <recent name="$PROJECT_DIR$/cli" />
+      <recent name="$PROJECT_DIR$/src/presentation" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test" />
+      <recent name="$PROJECT_DIR$/src/presentation" />
+      <recent name="$PROJECT_DIR$/src/presentation/inputData" />
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Node.js.polygon.js">
+    <configuration name="Run" type="NodeJSConfigurationType" node-parameters="src/presentation/delegation.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <configuration name="Unnamed" type="NodeJSConfigurationType" nameIsGenerated="true" node-parameters="test" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <configuration name="polygon.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/presentation/polygon.js" working-dir="$PROJECT_DIR$/src/presentation">
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Node.js.Run" />
+      <item itemvalue="Node.js.Unnamed" />
+      <item itemvalue="Node.js.polygon.js" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.polygon.js" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="85f416be-a422-4480-af49-d342fe801928" name="Default Changelist" comment="" />
+      <created>1614070112895</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1614070112895</updated>
+      <workItem from="1614070114661" duration="13900000" />
+      <workItem from="1614239597540" duration="19595000" />
+      <workItem from="1614411442558" duration="1139000" />
+      <workItem from="1614412610504" duration="7312000" />
+      <workItem from="1614583084664" duration="19007000" />
+      <workItem from="1614668095259" duration="5870000" />
+      <workItem from="1614683871260" duration="3780000" />
+      <workItem from="1614703106500" duration="36712000" />
+      <workItem from="1614809736378" duration="2613000" />
+      <workItem from="1614848354415" duration="14176000" />
+      <workItem from="1614880445525" duration="12059000" />
+      <workItem from="1614958148431" duration="470000" />
+      <workItem from="1615021538685" duration="3734000" />
+      <workItem from="1615033532149" duration="4037000" />
+      <workItem from="1615201051662" duration="5901000" />
+      <workItem from="1615234516288" duration="1526000" />
+      <workItem from="1615301747534" duration="1872000" />
+      <workItem from="1615449043817" duration="2342000" />
+      <workItem from="1615460994307" duration="850000" />
+      <workItem from="1615489287286" duration="887000" />
+      <workItem from="1615504893436" duration="43000" />
+      <workItem from="1615559276345" duration="272000" />
+      <workItem from="1615886456227" duration="5734000" />
+      <workItem from="1615902849387" duration="10000" />
+      <workItem from="1616062786824" duration="3282000" />
+      <workItem from="1616076486116" duration="8489000" />
+      <workItem from="1616247945043" duration="1017000" />
+      <workItem from="1616251838478" duration="5000" />
+      <workItem from="1616252154247" duration="5651000" />
+      <workItem from="1616574625153" duration="1873000" />
+      <workItem from="1616618530706" duration="2235000" />
+      <workItem from="1616763028674" duration="3027000" />
+      <workItem from="1617024705158" duration="1597000" />
+      <workItem from="1618314601138" duration="9482000" />
+      <workItem from="1618561395323" duration="31772000" />
+      <workItem from="1619094524698" duration="4120000" />
+      <workItem from="1619464620907" duration="9580000" />
+      <workItem from="1620162136245" duration="524000" />
+      <workItem from="1620247060774" duration="12154000" />
+      <workItem from="1621351169515" duration="484000" />
+      <workItem from="1621867941179" duration="1355000" />
+      <workItem from="1622023631117" duration="2056000" />
+      <workItem from="1622126174246" duration="855000" />
+      <workItem from="1623849323617" duration="75000" />
+      <workItem from="1623849402563" duration="638000" />
+      <workItem from="1623918517145" duration="411000" />
+      <workItem from="1623918973374" duration="878000" />
+      <workItem from="1623919904054" duration="576000" />
+      <workItem from="1624482763761" duration="1745000" />
+      <workItem from="1624873634364" duration="842000" />
+      <workItem from="1624894380625" duration="1328000" />
+      <workItem from="1624956920264" duration="205000" />
+    </task>
+    <task id="LOCAL-00001" summary="added feature verification">
+      <created>1614860483974</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1614860483974</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added feature verification" />
+    <option name="LAST_COMMIT_MESSAGE" value="added feature verification" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
