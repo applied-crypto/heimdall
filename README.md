@@ -1,3 +1,7 @@
+# Heimdall
+
+Heimdall is a SSI framework based on generic ZKPs.
+
 # heimdalljs
 
 ## Install
