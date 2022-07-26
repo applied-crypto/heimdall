@@ -55,7 +55,7 @@ class Presentation {
         this.privateInput.signatureMeta = [cred.signature.R8[0], cred.signature.R8[1], cred.signature.S];
         this.privateInput.issuerPK = [cred.signature.pk[0], cred.signature.pk[1]];
         let positionRevocationTree = Math.floor(cred.attributes[0] / Number(MAX_LEAF_SIZE));
-        let proofRevocation = revocationTree.generateProof(positionRevocationTree);
+        let proofRevocation = revocationTree.tree.generateProof(positionRevocationTree);
         this.privateInput.pathRevocation = proofRevocation.path;
         this.privateInput.lemmaRevocation = proofRevocation.lemma;
         this.privateInput.revocationLeaf = revocationTree.leaves[positionRevocationTree];

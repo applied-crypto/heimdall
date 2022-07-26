@@ -13,7 +13,7 @@ class Credential {
      * @param credentialType {String}
      * @param delegatable {Number}
      * @param registry {String}
-     * @param skIssuer {BigInt}
+     * @param skIssuer {String}
      * @param merkleTreeGenerator {function}
      * @param signatureGenerator {function}
      * @param publicKeyGenerator {function}

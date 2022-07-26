@@ -12,6 +12,7 @@ class RevocationRegistry {
             this.tree = merkleTreeGenerator([], old);
         }
         if (typeof sk !== "undefined") {
+            console.log(sk.toString(), this.tree.root.toString())
             this.signature = signatureGenerator(sk.toString(), this.tree.root.toString());
         }
     }
