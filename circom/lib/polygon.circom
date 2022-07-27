@@ -3,8 +3,8 @@ include "./circomlib/circuits/comparators.circom";
 template Polygon(n) {
 	signal input verty[n];
 	signal input vertx[n];
-	signal private input testx;
-	signal private input testy;
+	signal input testx;
+	signal input testy;
 	signal output out;
 
 	var c = 0;	

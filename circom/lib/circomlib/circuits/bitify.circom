@@ -16,6 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with circom. If not, see <https://www.gnu.org/licenses/>.
 */
+pragma circom 2.0.0;
 
 include "comparators.circom";
 include "aliascheck.circom";
@@ -66,7 +67,7 @@ template Bits2Num(n) {
 }
 
 template Bits2Num_strict() {
-    signal input in[n];
+    signal input in[254];
     signal output out;
 
     component aliasCheck = AliasCheck();

@@ -16,15 +16,16 @@
     You should have received a copy of the GNU General Public License
     along with circom. If not, see <https://www.gnu.org/licenses/>.
 */
+pragma circom 2.0.0;
 
-include "sha256_2.jaz";
+include "sha256_2.circom";
 
 template Main() {
-    signal private input a;
-    signal private input b;
+    signal input a;
+    signal input b;
     signal output out;
 
-    component sha256_2 = SHA256_2();
+    component sha256_2 = Sha256_2();
 
     sha256_2.a <== a;
     sha256_2.b <== a;

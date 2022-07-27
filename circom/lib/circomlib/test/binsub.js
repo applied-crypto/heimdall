@@ -1,8 +1,7 @@
 const path = require("path");
 
-const Fr = require("ffjavascript").bn128.Fr;
 const Scalar = require("ffjavascript").Scalar;
-const tester = require("circom").tester;
+const wasm_tester = require("circom_tester").wasm;
 
 function print(circuit, w, s) {
     console.log(s + ": " + w[circuit.getSignalIdx(s)]);
@@ -27,7 +26,7 @@ describe("BinSub test", function () {
 
     let circuit;
     before( async() => {
-        circuit = await tester(path.join(__dirname, "circuits", "binsub_test.circom"));
+        circuit = await wasm_tester(path.join(__dirname, "circuits", "binsub_test.circom"));
     });
 
     it("Should check variuos ege cases", async () => {

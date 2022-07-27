@@ -1,18 +1,25 @@
 const path = require("path");
 
-const Fr = require("ffjavascript").bn128.Fr;
-const tester = require("circom").tester;
+const Scalar = require("ffjavascript").Scalar;
 
-const babyJub = require("../src/babyjub.js");
-const pedersen = require("../src/pedersenHash.js");
+const buildPedersenHash = require("circomlibjs").buildPedersenHash;
+const buildBabyJub = require("circomlibjs").buildBabyjub;
+
+const wasm_tester = require("circom_tester").wasm;
 
 
 describe("Pedersen test", function() {
+    let babyJub
+    let pedersen;
+    let F;
     let circuit;
     this.timeout(100000);
     before( async() => {
 
-        circuit = await tester(path.join(__dirname, "circuits", "pedersen2_test.circom"));
+        babyJub = await buildBabyJub();
+        F = babyJub.F;
+        pedersen = await buildPedersenHash();
+        circuit = await wasm_tester(path.join(__dirname, "circuits", "pedersen2_test.circom"));
     });
     it("Should pedersen at zero", async () => {
 
@@ -25,16 +32,16 @@ describe("Pedersen test", function() {
         const h = pedersen.hash(b);
         const hP = babyJub.unpackPoint(h);
 
-        await circuit.assertOut(w, {out: hP});
+        await circuit.assertOut(w, {out: [F.toObject(hP[0]), F.toObject(hP[1])] });
 
     });
     it("Should pedersen with 253 ones", async () => {
 
         let w;
 
-        const n = Fr.sub(Fr.shl(Fr.one, Fr.e(253)), Fr.one);
+        const n = F.e(Scalar.sub(Scalar.shl(Scalar.e(1), 253), Scalar.e(1)));
 
-        w = await circuit.calculateWitness({ in: n}, true);
+        w = await circuit.calculateWitness({ in: F.toObject(n)}, true);
 
         const b = Buffer.alloc(32);
         for (let i=0; i<31; i++) b[i] = 0xFF;
@@ -43,7 +50,7 @@ describe("Pedersen test", function() {
         const h = pedersen.hash(b);
         const hP = babyJub.unpackPoint(h);
 
-        await circuit.assertOut(w, {out: hP});
+        await circuit.assertOut(w, {out: [F.toObject(hP[0]), F.toObject(hP[1])] });
 
     });
 });

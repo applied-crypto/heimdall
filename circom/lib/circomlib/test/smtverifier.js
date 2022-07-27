@@ -1,9 +1,9 @@
 const chai = require("chai");
 const path = require("path");
-const Fr = require("ffjavascript").bn128.Fr;
-const tester = require("circom").tester;
+const Scalar = require("ffjavascript").Scalar;
+const wasm_tester = require("circom_tester").wasm;
 
-const smt = require("../src/smt.js");
+const newMemEmptyTrie = require("circomlibjs").newMemEmptyTrie;
 
 const assert = chai.assert;
 
@@ -11,46 +11,49 @@ function print(circuit, w, s) {
     console.log(s + ": " + w[circuit.getSignalIdx(s)]);
 }
 
-async function testInclusion(tree, key, circuit) {
-
+async function testInclusion(tree, _key, circuit) {
+    const key = tree.F.e(_key);
     const res = await tree.find(key);
 
     assert(res.found);
     let siblings = res.siblings;
-    while (siblings.length<10) siblings.push(Fr.e(0));
+    for (let i=0; i<siblings.length; i++) siblings[i] = tree.F.toObject(siblings[i]);
+    while (siblings.length<10) siblings.push(0);
 
     const w = await circuit.calculateWitness({
         enabled: 1,
         fnc: 0,
-        root: tree.root,
+        root: tree.F.toObject(tree.root),
         siblings: siblings,
         oldKey: 0,
         oldValue: 0,
         isOld0: 0,
-        key: key,
-        value: res.foundValue
+        key: tree.F.toObject(key),
+        value: tree.F.toObject(res.foundValue)
     }, true);
 
     await circuit.checkConstraints(w);
 
 }
 
-async function testExclusion(tree, key, circuit) {
+async function testExclusion(tree, _key, circuit) {
+    const key = tree.F.e(_key);
     const res = await tree.find(key);
 
     assert(!res.found);
     let siblings = res.siblings;
-    while (siblings.length<10) siblings.push(Fr.e(0));
+    for (let i=0; i<siblings.length; i++) siblings[i] = tree.F.toObject(siblings[i]);
+    while (siblings.length<10) siblings.push(0);
 
     const w = await circuit.calculateWitness({
         enabled: 1,
         fnc: 1,
-        root: tree.root,
+        root: tree.F.toObject(tree.root),
         siblings: siblings,
-        oldKey: res.isOld0 ? 0 : res.notFoundKey,
-        oldValue: res.isOld0 ? 0 : res.notFoundValue,
+        oldKey: res.isOld0 ? 0 : tree.F.toObject(res.notFoundKey),
+        oldValue: res.isOld0 ? 0 : tree.F.toObject(res.notFoundValue),
         isOld0: res.isOld0 ? 1 : 0,
-        key: key,
+        key: tree.F.toObject(key),
         value: 0
     });
 
@@ -59,15 +62,17 @@ async function testExclusion(tree, key, circuit) {
 }
 
 describe("SMT Verifier test", function () {
+    let Fr;
     let circuit;
     let tree;
 
     this.timeout(100000);
 
     before( async () => {
-        circuit = await tester(path.join(__dirname, "circuits", "smtverifier10_test.circom"));
+        circuit = await wasm_tester(path.join(__dirname, "circuits", "smtverifier10_test.circom"));
 
-        tree = await smt.newMemEmptyTrie();
+        tree = await newMemEmptyTrie();
+        Fr = tree.F;
         await tree.insert(7,77);
         await tree.insert(8,88);
         await tree.insert(32,3232);
@@ -119,13 +124,13 @@ describe("SMT Verifier test", function () {
         const e2fail_hi= Fr.e("17195092312975762537892237130737365903429674363577646686847513978084990105579");
         const e2fail_hv= Fr.e("19650379996168153643111744440707177573540245771926102415571667548153444658179");
 
-        const tree1 = await smt.newMemEmptyTrie();
+        const tree1 = await newMemEmptyTrie();
         await tree1.insert(e1_hi,e1_hv);
         await tree1.insert(e2ok_hi,e2ok_hv);
 
         await testInclusion(tree1, e2ok_hi, circuit);
 
-        const tree2 = await smt.newMemEmptyTrie();
+        const tree2 = await newMemEmptyTrie();
         await tree2.insert(e1_hi,e1_hv);
         await tree2.insert(e2fail_hi,e2fail_hv);
 

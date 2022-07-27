@@ -1,9 +1,9 @@
 const chai = require("chai");
 const path = require("path");
-const tester = require("circom").tester;
-const babyJub = require("../src/babyjub.js");
-const Fr = require("ffjavascript").bn128.Fr;
+const wasm_tester = require("circom_tester").wasm;
+const buildBabyjub = require("circomlibjs").buildBabyjub;
 
+const Scalar = require("ffjavascript").Scalar;
 
 const assert = chai.assert;
 
@@ -12,12 +12,18 @@ function print(circuit, w, s) {
 }
 
 describe("Exponentioation test", function () {
-
+    let babyJub;
+    let Fr;
     this.timeout(100000);
+
+    before( async () => {
+        babyJub = await buildBabyjub();
+        Fr = babyJub.F;
+    });
 
     it("Should generate the Exponentiation table in k=0", async () => {
 
-        const circuit = await tester(path.join(__dirname, "circuits", "escalarmulw4table_test.circom"));
+        const circuit = await wasm_tester(path.join(__dirname, "circuits", "escalarmulw4table_test.circom"));
 
         const w = await circuit.calculateWitness({in: 1});
 
@@ -34,7 +40,7 @@ describe("Exponentioation test", function () {
 
         for (let i=0; i<16; i++) {
 
-            expectedOut.push(dbl);
+            expectedOut.push([Fr.toObject(dbl[0]), Fr.toObject(dbl[1])]);
             dbl = babyJub.addPoint(dbl,g);
         }
 
@@ -44,7 +50,7 @@ describe("Exponentioation test", function () {
 
     it("Should generate the Exponentiation table in k=3", async () => {
 
-        const circuit = await tester(path.join(__dirname, "circuits", "escalarmulw4table_test3.circom"));
+        const circuit = await wasm_tester(path.join(__dirname, "circuits", "escalarmulw4table_test3.circom"));
 
         const w = await circuit.calculateWitness({in: 1});
 
@@ -64,7 +70,7 @@ describe("Exponentioation test", function () {
         const expectedOut = [];
 
         for (let i=0; i<16; i++) {
-            expectedOut.push(dbl);
+            expectedOut.push([Fr.toObject(dbl[0]), Fr.toObject(dbl[1])]);
 
             dbl = babyJub.addPoint(dbl,g);
         }
@@ -75,7 +81,7 @@ describe("Exponentioation test", function () {
 
     it("Should exponentiate g^31", async () => {
 
-        const circuit = await tester(path.join(__dirname, "circuits", "escalarmul_test.circom"));
+        const circuit = await wasm_tester(path.join(__dirname, "circuits", "escalarmul_test.circom"));
 
         const w = await circuit.calculateWitness({"in": 31});
 
@@ -92,9 +98,9 @@ describe("Exponentioation test", function () {
             c = babyJub.addPoint(c,g);
         }
 
-        await circuit.assertOut(w, {out: c});
+        await circuit.assertOut(w, {out: [Fr.toObject(c[0]), Fr.toObject(c[1])] });
 
-        const w2 = await circuit.calculateWitness({"in": Fr.add(Fr.shl(Fr.e(1), Fr.e(252)),Fr.one)});
+        const w2 = await circuit.calculateWitness({"in": Scalar.add(Scalar.shl(Scalar.e(1), 252),Scalar.e(1))});
 
         c = [g[0], g[1]];
         for (let i=0; i<252;i++) {
@@ -102,13 +108,13 @@ describe("Exponentioation test", function () {
         }
         c = babyJub.addPoint(c,g);
 
-        await circuit.assertOut(w2, {out: c});
+        await circuit.assertOut(w2, {out: [Fr.toObject(c[0]), Fr.toObject(c[1])] });
 
     }).timeout(10000000);
 
     it("Number of constrains for 256 bits", async () => {
 
-        const circuit = await tester(path.join(__dirname, "circuits", "escalarmul_test_min.circom"));
+        const circuit = await wasm_tester(path.join(__dirname, "circuits", "escalarmul_test_min.circom"));
 
     }).timeout(10000000);
 

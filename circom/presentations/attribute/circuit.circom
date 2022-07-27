@@ -1,37 +1,35 @@
-include "../../lib/metaData.circom"
-include "../../lib/contentData.circom"
+pragma circom 2.0.0;
+
+include "../../lib/metaData.circom";
+include "../../lib/merkleproof.circom";
 
 template AttributePresentation(depth, revocationDepth) {
 	/*
 	* Private Inputs
 	*/
 	// Meta
-	signal private input pathMeta[depth];
-	signal private input lemmaMeta[depth + 2];
-	signal private input meta[8]; //Fixed Size of meta attributes in each credential
-	signal private input signatureMeta[3];
-	signal private input pathRevocation[revocationDepth];
-	signal private input lemmaRevocation[revocationDepth + 2];
-	signal private input revocationLeaf;
-	signal private input signChallenge[3];
-	signal private input issuerPK[2];
-	// Content
-	signal private input lemma[depth + 2];
-	/*
-	* Public Inputs
-	*/
-	// Meta
+	signal input pathMeta[depth];
+	signal input lemmaMeta[depth + 2];
+	signal input meta[8]; //Fixed Size of meta attributes in each credential
+	signal input signatureMeta[3];
+	signal input pathRevocation[revocationDepth];
+	signal input lemmaRevocation[revocationDepth + 2];
+	signal input revocationLeaf;
+	signal input signChallenge[3];
+	signal input issuerPK[2];
+	signal input lemma[depth + 2];
 	signal input challenge; //7
 	signal input expiration; //8
+	signal input path[depth]; //9
+
 	signal output type; // 0
 	signal output revocationRoot; //1
 	signal output revocationRegistry; //2
 	signal output revoked; //3
 	signal output linkBack; //4
 	signal output delegatable; //5
-	// Content
-	signal input path[depth]; //9
 	signal output attributeHash; //6
+
 	/*
 	* Meta Calculations
 	*/
@@ -59,7 +57,7 @@ template AttributePresentation(depth, revocationDepth) {
 	// End - Check Meta Integrity
 
 	type <== checkMetaDataIntegrity.type;
-	revocationRoot <== lemmaRevocation[revocationDepth + 1];
+	//revocationRoot <== lemmaRevocation[revocationDepth + 1];
 	delegatable <== checkMetaDataIntegrity.delegatable;
 
 	// Begin - Check Expiration
@@ -116,4 +114,24 @@ template AttributePresentation(depth, revocationDepth) {
 	attributeHash <== checkAttribute.attribute;
 }
 
-component main = AttributePresentation(4, 13);
+template CheckAttribute(depth) {
+    signal input lemma[depth + 2];
+    signal input path[depth];
+    signal input credentialRoot;
+
+    signal output attribute;
+
+    lemma[depth + 1] === credentialRoot;
+
+    component merkleProof = MerkleProof(depth);
+
+    merkleProof.lemma[0] <== lemma[0];
+    merkleProof.lemma[depth + 1] <== lemma[depth + 1];
+
+    for (var i=0;i<depth;i++) {
+            merkleProof.path[i] <== path[i];
+            merkleProof.lemma[i + 1] <== lemma[i + 1];
+    }
+
+    attribute <== lemma[0];
+}

@@ -1,7 +1,9 @@
-include "./circomlib/circuits/eddsaposeidon.circom"
-include "./circomlib/circuits/poseidon.circom"
-include "./merkleproof.circom"
-include "./circomlib/circuits/comparators.circom"
+pragma circom 2.0.0;
+
+include "./circomlib/circuits/eddsaposeidon.circom";
+include "./circomlib/circuits/poseidon.circom";
+include "./merkleproof.circom";
+include "./circomlib/circuits/comparators.circom";
 
 template CheckMetaDataIntegrity(depth) {
     signal input path[depth];
@@ -35,7 +37,7 @@ template CheckMetaDataIntegrity(depth) {
 
     component merkleTree = MerkleTree(3);
 
-    hash[0].inputs[0] <== meta[0]
+    hash[0].inputs[0] <== meta[0];
     merkleTree.data[0] <== hash[0].out; 
 
     merkleTree.data[1] <== meta[1];
@@ -80,7 +82,7 @@ template CheckExpiration() {
 
     component le = LessEqThan(64);
     le.in[0] <== expirationPresentation;
-    le.in[1] <== expirationCredential
+    le.in[1] <== expirationCredential;
     1 === le.out;
 }
 

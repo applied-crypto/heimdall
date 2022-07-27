@@ -1,5 +1,4 @@
 include "../../lib/metaData.circom"
-include "../../lib/contentData.circom"
 
 template AttributePresentation(depth, revocationDepth) {
 	/*
@@ -105,4 +104,24 @@ template AttributePresentation(depth, revocationDepth) {
 	attributeHash <== checkAttribute.attribute;
 }
 
-component main = AttributePresentation(4, 13);
+template CheckAttribute(depth) {
+    signal input lemma[depth + 2];
+    signal input path[depth];
+    signal input credentialRoot;
+
+    signal output attribute;
+
+    lemma[depth + 1] === credentialRoot;
+
+    component merkleProof = MerkleProof(depth);
+
+    merkleProof.lemma[0] <== lemma[0];
+    merkleProof.lemma[depth + 1] <== lemma[depth + 1];
+
+    for (var i=0;i<depth;i++) {
+            merkleProof.path[i] <== path[i];
+            merkleProof.lemma[i + 1] <== lemma[i + 1];
+    }
+
+    attribute <== lemma[0];
+}

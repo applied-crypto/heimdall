@@ -1,11 +1,12 @@
 const chai = require("chai");
 const path = require("path");
 
-const tester = require("circom").tester;
-const Fr = require("ffjavascript").bn128.Fr;
+const wasm_tester = require("circom_tester").wasm;
 
-const eddsa = require("../src/eddsa.js");
-const babyJub = require("../src/babyjub.js");
+const buildEddsa = require("circomlibjs").buildEddsa;
+const buildBabyjub = require("circomlibjs").buildBabyjub;
+
+const Scalar = require("ffjavascript").Scalar;
 
 const assert = chai.assert;
 
@@ -18,9 +19,9 @@ function buffer2bits(buff) {
     for (let i=0; i<buff.length; i++) {
         for (let j=0; j<8; j++) {
             if ((buff[i]>>j)&1) {
-                res.push(Fr.one);
+                res.push(1n);
             } else {
-                res.push(Fr.zero);
+                res.push(0n);
             }
         }
     }
@@ -30,12 +31,19 @@ function buffer2bits(buff) {
 
 describe("EdDSA test", function () {
     let circuit;
+    let eddsa;
+    let babyJub;
+    let F;
 
     this.timeout(100000);
 
     before( async () => {
-        circuit = await tester(path.join(__dirname, "circuits", "eddsa_test.circom"));
+        eddsa = await buildEddsa();
+        babyJub = await buildBabyjub();
+        F = babyJub.F;
+        circuit = await wasm_tester(path.join(__dirname, "circuits", "eddsa_test.circom"));
     });
+
 
     it("Sign a single 10 bytes from 0 to 9", async () => {
         const msg = Buffer.from("00010203040506070809", "hex");
@@ -48,17 +56,17 @@ describe("EdDSA test", function () {
 
         const pPubKey = babyJub.packPoint(pubKey);
 
-        const signature = eddsa.sign(prvKey, msg);
+        const signature = eddsa.signPedersen(prvKey, msg);
 
         const pSignature = eddsa.packSignature(signature);
         const uSignature = eddsa.unpackSignature(pSignature);
 
-        assert(eddsa.verify(msg, uSignature, pubKey));
+        assert(eddsa.verifyPedersen(msg, uSignature, pubKey));
 
-        const msgBits = buffer2bits(msg);
-        const r8Bits = buffer2bits(pSignature.slice(0, 32));
-        const sBits = buffer2bits(pSignature.slice(32, 64));
-        const aBits = buffer2bits(pPubKey);
+        const msgBits = buffer2bits( msg);
+        const r8Bits = buffer2bits( pSignature.slice(0, 32));
+        const sBits = buffer2bits( pSignature.slice(32, 64));
+        const aBits = buffer2bits( pPubKey);
 
         const w = await circuit.calculateWitness({A: aBits, R8: r8Bits, S: sBits, msg: msgBits}, true);
 
