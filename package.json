@@ -1,1 +1,5 @@
-{}
+{
+  "dependencies": {
+    "snarkjs": "^0.4.24"
+  }
+}

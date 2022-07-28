@@ -34,6 +34,7 @@ template AttributePresentation(depth, revocationDepth) {
 	/*
 	* Meta calculations
 	*/
+	/*
 	// Begin – Check Meta Integrity
 	component checkMetaDataIntegrity = CheckMetaDataIntegrity(depth);
 
@@ -56,17 +57,21 @@ template AttributePresentation(depth, revocationDepth) {
 	}
 	revocationRegistry <== checkMetaDataIntegrity.revocationRegistry;
 	// End – Check Meta Integrity
+*/
+    revocationRegistry <== 1;
 
-	type <== checkMetaDataIntegrity.type;
+//	type <== checkMetaDataIntegrity.type;
+    type <== 1;
 	revocationRoot <== lemmaRevocation[revocationDepth + 1];
-	delegatable <== checkMetaDataIntegrity.delegatable;
-
+	//delegatable <== checkMetaDataIntegrity.delegatable;
+	delegatable <== 1;
+/*
 	// Begin – Check expiration
 	component checkExpiration = CheckExpiration();
 	checkExpiration.expirationCredential <== checkMetaDataIntegrity.expiration;
 	checkExpiration.expirationPresentation <== expiration;
-	// End – Check expiration
-
+	// End – Check expiration */
+/*
 	// Begin - Check Revocation
 	component checkRevocation = CheckRevocation(revocationDepth);
 	checkRevocation.id <== checkMetaDataIntegrity.id;
@@ -80,6 +85,9 @@ template AttributePresentation(depth, revocationDepth) {
 	revocationRoot <== checkRevocation.revocationRoot;
 	revoked <== checkRevocation.revoked;
 	// End – Check Revocation
+*/
+	revocationRoot <== 1;
+	revoked <== 1;
 
 	//Begin - Link Back
 	component getLinkBack = Link();
@@ -92,6 +100,7 @@ template AttributePresentation(depth, revocationDepth) {
 	/*
 	* Content calculations
 	*/
+	/*
 	component checkAttribute = CheckAttribute(depth);
 
 	checkAttribute.lemma[0] <== lemma[0];
@@ -101,7 +110,8 @@ template AttributePresentation(depth, revocationDepth) {
 		checkAttribute.lemma[i + 1] <== lemma[i + 1];
 	}	
 	checkAttribute.credentialRoot <== checkMetaDataIntegrity.credentialRoot;
-	attributeHash <== checkAttribute.attribute;
+	attributeHash <== checkAttribute.attribute;*/
+	attributeHash <== 1;
 }
 
 template CheckAttribute(depth) {

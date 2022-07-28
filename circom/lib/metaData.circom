@@ -12,7 +12,6 @@ template CheckMetaDataIntegrity(depth) {
     signal input signature[3];
     signal input issuerPK[2];
 
-
     signal output id;
     signal output type;
     signal output holderPK[2];
