@@ -151,8 +151,8 @@ template CheckRevocation(depth) {
     signal output revoked;
     signal output revocationRoot;
 
-    component div[4];
-    for (var i = 0; i < 4; i++) {
+    component div[3];
+    for (var i = 0; i < 3; i++) {
         div[i] = Div(252);
     }
 
@@ -182,18 +182,22 @@ template CheckRevocation(depth) {
             merkleProof.path[i] <== path[i];
             merkleProof.lemma[i + 1] <== lemma[i + 1];
     }	
-
+    
     component pow = Pow(252);
+
     pow.base <== 2;
     pow.exponent <== div[0].mod;
-    div[2].num <== revocationLeaf;
-    div[2].denom <== pow.out;
-    div[3].num <== div[2].div;
-    div[3].denom <== 2;
-
-    revoked <== div[3].mod;
+    div[1].num <== revocationLeaf;
+    div[1].denom <== pow.out;
+    div[2].num <== div[1].div;
+    div[2].denom <== 2;
+    revoked <== div[2].mod;
 
     revocationRoot <== lemma[depth + 1];
+
+    //revoked <== 0;
+    //revocationRoot <== 123;
+
 }
 
 template Link() {
