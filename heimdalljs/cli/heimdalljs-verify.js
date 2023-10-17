@@ -1,13 +1,14 @@
 #!/usr/bin/env node
-const {program} = require("commander");
+const { program } = require("commander");
 const fs = require("fs/promises");
-const {RangePresentation} = require("../src/presentation/range");
-const {PolygonPresentation} = require("../src/presentation/polygon");
-const {getRevocationRoot} = require("./util");
-const {poseidonHash} = require("../src/crypto/poseidon");
-const {AttributePresentation} = require("../src/presentation/attribute");
-const {PresentationTypes} = require("../src/presentation/presentation");
-const {DelegationPresentation} = require("../src/presentation/delegation");
+const { RangePresentation } = require("../src/presentation/range");
+const { PolygonPresentation } = require("../src/presentation/polygon");
+const { getRevocationRoot } = require("./util");
+const { poseidonHash } = require("../src/crypto/poseidon");
+const { AttributePresentation } = require("../src/presentation/attribute");
+const { PresentationTypes } = require("../src/presentation/presentation");
+const { DelegationPresentation } = require("../src/presentation/delegation");
+const { DesignatedVerifierPresentation } = require("../src/presentation/designatedVerifier");
 
 program.arguments("<path>");
 
@@ -28,6 +29,9 @@ const checkPresentation = async (path, options) => {
             case PresentationTypes.range:
                 presentation = RangePresentation.restore(presentationJSON);
                 break;
+            case PresentationTypes.designatedVerifier:
+                presentation = DesignatedVerifierPresentation.restore(presentationJSON);
+                break;
         }
         let revRoot = await getRevocationRoot(presentation.output.meta.revocationRegistry);
         let valid = presentation.verify(poseidonHash);
@@ -42,7 +46,7 @@ program.action((path, options) => {
     checkPresentation(path, options).then(res => {
         console.log(res);
         process.exit();
-   }).catch(res => {
+    }).catch(res => {
         console.log(res);
         process.exit();
     });

@@ -49,4 +49,4 @@ class Credential {
     }
 }
 
-module.exports = {Credential, META_SIZE};
+module.exports = { Credential, META_SIZE };

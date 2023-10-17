@@ -1,9 +1,9 @@
 const path = require("path");
 const fs = require("fs");
 const snarkjs = require("snarkjs");
-const {performance} = require("perf_hooks");
-const {MAX_LEAF_SIZE} = require('../revocation');
-const {META_SIZE} = require('../credential');
+const { performance } = require("perf_hooks");
+const { MAX_LEAF_SIZE } = require('../revocation');
+const { META_SIZE } = require('../credential');
 
 class Presentation {
     type
@@ -88,7 +88,7 @@ class Presentation {
     async generate() {
         let root = path.join(process.mainModule.paths[0].split("node_modules")[0].slice(0, -1), "../");
         let t0 = performance.now();
-        const {proof, publicSignals} = await snarkjs.groth16.fullProve(
+        const { proof, publicSignals } = await snarkjs.groth16.fullProve(
             this.privateInput,
             path.join(root, "zkp", this.type, "circuit.wasm"),
             path.join(root, "zkp", this.type, "circuit_final.zkey")
@@ -175,7 +175,8 @@ const PresentationTypes = Object.freeze({
     "delegation": "delegation",
     "attribute": "attribute",
     "polygon": "polygon",
-    "range": "range"
+    "range": "range",
+    "designatedVerifier": "designatedVerifier"
 });
 
-module.exports = {Presentation, PresentationTypes};
+module.exports = { Presentation, PresentationTypes };

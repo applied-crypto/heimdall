@@ -1,0 +1,6 @@
+[31;22m[ERROR] [39;1msnarkJS[0m: [Error: ENOENT: no such file or directory, open 'input_private.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'input_private.json'
+}
